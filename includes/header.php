@@ -1,6 +1,6 @@
 <nav>
     <div class="nav-wrapper" style="background:black">
-      <a href="index.php" style="margin-left:20px;" class="brand-logo hide-on-med-and-down">Aston Events</a>
+      <a href="index.php" style="margin-left:20px;" class="brand-logo hide-on-med-and-down">WLVBlog</a>
       <ul id="nav-mobile" class="right  ">
       
       <?php if(isset($isEventPage)):?>
@@ -23,11 +23,11 @@
       
       ?>" href="blogs.php">Blogs</a></li>
       <li><a style="background:<?php 
-        if(isset($curNav) && $curNav=="culture"){
+        if(isset($curNav) && $curNav=="myposts"){
             echo "#d32f2f";
         }
 
-        ?>" href="myposts.php">My Posts</a></li>
+        ?>" href="myposts.php">Create</a></li>
   
         
         <?php if(isset($_SESSION['userid'])):?>
