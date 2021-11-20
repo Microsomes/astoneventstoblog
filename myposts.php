@@ -1,6 +1,31 @@
 <?php
 session_start();
 $curNav="myposts";
+
+if (!isset($_SESSION['userid'])) {
+    header("Location: home.php");
+}
+
+$error=null;
+
+if (isset($_POST) &&  count($_POST)>=1){
+
+
+if (isset($_POST['title'])
+    && isset($_POST['content'])
+    && isset($_POST['topic'])
+){
+    $title = $_POST['title'];
+    echo $title;
+
+    $error=null;
+}else{
+   $error="Please fill in all fields";
+}
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -44,19 +69,19 @@ $curNav="myposts";
 
     <div>
 
-        <form class="p-12">
+        <form class="p-12" action="/myposts.php" method="POST">
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
                     Title
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="Blog Title... ">
+                <input name="title" id="title" type="text"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Blog Title... ">
             </div> 
             
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                     Content
                 </label>
-                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="Blog Title... "></textarea>
+                <textarea name="content" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="content" type="text" placeholder="Blog Title... "></textarea>
             </div> 
 
 
@@ -67,30 +92,50 @@ $curNav="myposts";
                 </label>
 
 
-                <script>
+            
 
-                    axios.get("/ajax/getTopics.php").then(data=>{
-                        const topics=data.data;
-                        //add options too the select #topicOptions
-                        for(let i=0;i<topics.length;i++){
-                            const topic=topics[i];
-                            const option=document.createElement("option");
-                            option.value=topic.id;
-                            option.innerText=topic.name;
-                            document.getElementById("topicOptions").appendChild(option);
-                        }
-                    });
-
-                </script>
-
-
-                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="topicOptions">
+                <div class="mt-3">
+                <select name="topicOption" class="mt-3 block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+                id="topicOptions">
                 </select>
+                </div>
+
+
+                <?php if ($error!=null){ ?>
+                <div class=" top-0 right-2 mt-4 mr-4 ml-3 text-red-500 text-sm">
+                    <?php echo $error; ?>
+                </div>  
+                <?php } ?>
+
+                <div class=" px-2 py-4 flex items-center justify-between">
+                    <button type="submit" class="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                        Publish Post
+                    </button>
+                </div>
+
+
 
 
 
 
         </form>
+
+
+        <script>
+
+axios.get("/ajax/getTopics.php").then(data=>{
+    const topics=data.data;
+    //add options too the select #topicOptions
+    for(let i=0;i<topics.length;i++){
+        const topic=topics[i];
+        const option=document.createElement("option");
+        option.value=topic.id;
+        option.innerText=topic.name;
+        document.getElementById("topicOptions").appendChild(option);
+    }
+});
+
+</script>
 
 
     </div>
