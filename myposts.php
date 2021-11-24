@@ -1,25 +1,50 @@
 <?php
 session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
+include_once './includes/connect.php';
+
 $curNav="myposts";
 
 if (!isset($_SESSION['userid'])) {
-    header("Location: home.php");
+    header("Location: signin.php");
 }
 
 $error=null;
+$successInsert=null;
+$lastInsertId=null;
 
 if (isset($_POST) &&  count($_POST)>=1){
 
 
-if (isset($_POST['title'])
+
+if (
+    isset($_POST['title'])
     && isset($_POST['content'])
-    && isset($_POST['topic'])
+    && isset($_POST['topicOption'])
 ){
     $title = $_POST['title'];
-    echo $title;
+    $content = $_POST['content'];
+    $topicOption = $_POST['topicOption'];
+
+
+    //insert in to wlv_blogs
+    $sql = "INSERT INTO wlv_blogs (`title`, `author`, `content`, `topicId`, `userid`) VALUES (?,?,?,?,?)";
+    $stmt= $conn->prepare($sql);
+    $stmt->execute([$title,$_SESSION['username'],$content,$topicOption,$_SESSION['userid']]);
+
+    $id = $conn->lastInsertId();
+
+    $successInsert=true;
+    $lastInsertId=$id;
+
 
     $error=null;
 }else{
+
    $error="Please fill in all fields";
 }
 
@@ -112,6 +137,12 @@ if (isset($_POST['title'])
                         Publish Post
                     </button>
                 </div>
+
+                <?php if ($successInsert): ?>
+                <div class="h-18 flex items-center justify-center text-2xl p-1 rounded-md shadow-xl bg-green-400">
+                    <p>Success Post Added <a class="underline" href="blog.php?id=<?php echo $lastInsertId;?>">View</a></p>
+                </div>
+                <?php endif; ?>
 
 
 

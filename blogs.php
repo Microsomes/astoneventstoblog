@@ -1,23 +1,57 @@
 <?php
 session_start();
-
-$curNav="sports";
-
-include_once("./includes/connect.php");
-//connects to the database as we need to grab the events
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 
+include_once './includes/connect.php';
+
+$curNav="blogs";
+
+if (!isset($_SESSION['userid'])) {
+    header("Location: signin.php");
+}
+
+$error=null;
+$successInsert=null;
+$lastInsertId=null;
+
+if (isset($_POST) &&  count($_POST)>=1){
 
 
-$events = $conn->query("SELECT * FROM event WHERE eventypeid=1  ORDER BY eventid DESC")->fetchAll();
 
-//print_r(sizeof($events));
+if (
+    isset($_POST['title'])
+    && isset($_POST['content'])
+    && isset($_POST['topicOption'])
+){
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+    $topicOption = $_POST['topicOption'];
 
 
- 
+    //insert in to wlv_blogs
+    $sql = "INSERT INTO wlv_blogs (`title`, `author`, `content`, `topicId`, `userid`) VALUES (?,?,?,?,?)";
+    $stmt= $conn->prepare($sql);
+    $stmt->execute([$title,$_SESSION['username'],$content,$topicOption,$_SESSION['userid']]);
+
+    $id = $conn->lastInsertId();
+
+    $successInsert=true;
+    $lastInsertId=$id;
+
+
+    $error=null;
+}else{
+
+   $error="Please fill in all fields";
+}
+
+}
+
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +62,12 @@ $events = $conn->query("SELECT * FROM event WHERE eventypeid=1  ORDER BY eventid
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <title>Sports</title>
+
+<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js" integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <title>My Posts</title>
     <style>
     *{
         padding:0;
@@ -36,74 +75,31 @@ $events = $conn->query("SELECT * FROM event WHERE eventypeid=1  ORDER BY eventid
         font-family: 'Roboto', sans-serif;
     }
     
-    #signInBox{
-        display: flex;;
-        flex-flow: column;
-    }
-    #logInButtonContainer{
-        display: flex;
-        flex-flow: column;
-    }
 
     </style>
 </head>
-<body style=" background-image:url('https://firebasestorage.googleapis.com/v0/b/skycoin-f383f.appspot.com/o/bckground.png?alt=media&token=0fbfb5cd-3f36-4851-8354-4f35167fa262');
-    background-repeat:no-repeat;background-size:cover;">
+<body>
 
- <div style="display:flex;flex-flow:column;height:100vh;overflow:auto">
+ <div style="display:flex;flex-flow:column;height:100vh;overflow:hidden">
 
     <?php include_once("./includes/header.php") ?>
 
 
-    <div style="height:200px;display:flex;align-items:center;justify-content:center;">
-        <h1 style="color:White;">Recent Blogs</h1>
+
+    <div class="h-96 flex items-center justify-center  text-6xl bg-blue-400 w-screen">
+
+        <h2 class=" pointer text-white">Recent Submitted Blogs</h2>
+
     </div>
 
-    <div style="display:flex;flex-wrap:wrap;padding:30px;justify-content:Center;">
+    <div>
 
-    <?php foreach($events as $event):?>
-  
-    <div style="display:flex;flex-flow:column;background-image:url('<?php echo $event['eventPicture'];?>');border-radius:10px;width:300px;min-height:300px;background:black;margin-left:20px;margin-top:20px">
-    
-    <a href="event.php?eventid=<?php echo $event['eventid'];?>"><p style="text-align: center;font-size:20px;margin-top:20px;color:white"> <?php echo $event['name']?></p></a>
    
-   
-    <p style="text-align: center;font-size:20px;margin-top:20px;color:white;padding:5px;"> <?php echo substr($event['description'],0,40);?>...</p>
-    <p style="text-align: center;font-size:20px;margin-top:20px;font-size:12px;color:white"> <?php echo $event['time']?></p>
-    
-    <p style="color:white;text-align:center;margin-top:20px">
-    (<?php
-    //calculate like count
-        $evID=$event['eventid'];
-        $stmt = $conn->prepare("SELECT COUNT(likesid) as 'total'  FROM likes WHERE postid=?");
-        $stmt->execute([$evID]); 
-        $allLikes = $stmt->fetchAll();
 
-     
-       $totalLikes=$allLikes[0]['total'];
-        //stores the total like count
 
-        echo $totalLikes;
- 
-    ?>) Likes
-    </p>
-        
-        <a style="text-align: center;" href="event.php?eventid=<?php echo $event['eventid'];?>"><button class="btn" style="margin-left:20px;margin-right:20px;margin-top:10px;border-radius:10px;">
-        More Details
-        </button></a>
-    
-        <div style="flex-grow: 1;"></div>
-        <div style="margin-bottom: 20px;display:flex;align-items: center;justify-content:Center;">
-          </div>
-    </div>
-    <?php endforeach;?>
-     
-    </div>
-   
-    
 
-    
-   
+
     </div>
 
  </div>
+

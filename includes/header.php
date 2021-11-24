@@ -17,11 +17,14 @@
       ?>" href="index.php">Home</a></li>
       <li><a style="background:<?php 
 
-        if(isset($curNav) && $curNav=="sports"){
+        if(isset($curNav) && $curNav=="blogs"){
             echo "#d32f2f";
         }
       
       ?>" href="blogs.php">Blogs</a></li>
+
+
+
       <li><a style="background:<?php 
         if(isset($curNav) && $curNav=="myposts"){
             echo "#d32f2f";
