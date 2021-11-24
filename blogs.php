@@ -13,42 +13,13 @@ if (!isset($_SESSION['userid'])) {
     header("Location: signin.php");
 }
 
-$error=null;
-$successInsert=null;
-$lastInsertId=null;
+//get wlv_blogs
+$sql2="SELECT wlv_blogs.*, wlv_users.username,wlv_topic.name FROM wlv_blogs INNER JOIN wlv_users ON wlv_blogs.userId= wlv_users.id INNER JOIN wlv_topic ON wlv_topic.id= wlv_blogs.topicId ORDER BY id desc";
 
-if (isset($_POST) &&  count($_POST)>=1){
+$stmt = $conn->prepare($sql2);
+$stmt->execute();
+$blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-
-if (
-    isset($_POST['title'])
-    && isset($_POST['content'])
-    && isset($_POST['topicOption'])
-){
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $topicOption = $_POST['topicOption'];
-
-
-    //insert in to wlv_blogs
-    $sql = "INSERT INTO wlv_blogs (`title`, `author`, `content`, `topicId`, `userid`) VALUES (?,?,?,?,?)";
-    $stmt= $conn->prepare($sql);
-    $stmt->execute([$title,$_SESSION['username'],$content,$topicOption,$_SESSION['userid']]);
-
-    $id = $conn->lastInsertId();
-
-    $successInsert=true;
-    $lastInsertId=$id;
-
-
-    $error=null;
-}else{
-
-   $error="Please fill in all fields";
-}
-
-}
 
 
 ?>
@@ -80,7 +51,7 @@ if (
 </head>
 <body>
 
- <div style="display:flex;flex-flow:column;height:100vh;overflow:hidden">
+ <div style="display:flex;flex-flow:column;overflow:hidden">
 
     <?php include_once("./includes/header.php") ?>
 
@@ -89,6 +60,21 @@ if (
     <div class="h-96 flex items-center justify-center  text-6xl bg-blue-400 w-screen">
 
         <h2 class=" pointer text-white">Recent Submitted Blogs</h2>
+
+    </div>
+
+    <div>
+
+    <?php foreach($blogs as $blog): ?>
+        <div  class="hover:bg-gray-400 ml-6 mr-6 cursor-pointer pl-6 pr-6 bg-gray-300 mt-2 p-2 rounded-md">
+
+        <p class="font-bold text-xl"><?php print_r($blog['username']);?></p>
+        <p class="text-sm"><?php print_r($blog['createdAT']);?></p>
+        <br>
+       <p class="text-3xl"> <?php print_r($blog['title']);?></p>
+         
+        </div>
+        <?php endforeach; ?>
 
     </div>
 
