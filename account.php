@@ -65,41 +65,7 @@ if(isset($_GET['section'])){
 
     </div>
 
-    <div style="margin: 0 auto;width:700px;">
-    <div style="display:flex;height:70px;background:black;border-radius:20px">
-
-    <div style="background:<?php
-
-if(isset($_GET['section']) && $_GET['section']=="likedblogs"){
-    echo "#558B2F";
-}
-
- ?>;width:50%;display:flex;align-items:center;justify-content:center"><a href="?section=likedblogs" style="color:white;font-size:20px;">Liked Blogs (Interests)</a></div>
-    <div style="background:<?php
-
-    if(isset($_GET['section']) && $_GET['section']=="pastComments"){
-        echo "#558B2F";
-    }
-    
-     ?>; width:50%;display:flex;align-items:center;justify-content:center"><a href="?section=pastComments" style="color:white;font-size:20px;">Past Comments</a></div>
-     
-    
-    </div>
-     
-
-        <?php if($_GET['section']=="likedblogs"): ?>
-        <div style="background:white;padding:20px;border-radius:5px;margin-top:20px;">
-         <?php include_once("./account_liked_blogs.php")?>
-         <?php else: ?>
-            <div style="background:white;padding:20px;border-radius:5px;margin-top:20px;">
-            <?php include_once("./account_past_comments.php")?>
-            </div>
-         <?php endif;?>
-        </div>
-
-
-   
-    </div>
+ 
     
 
  </div>

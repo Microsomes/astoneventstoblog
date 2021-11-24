@@ -47,11 +47,10 @@ $curNav="home";
     ">
     
         <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;background:none;border-radius:10px;padding:20px;">
-            <h1 style="color:white">Welcome to <span style="font-weight: bold;color:orange">WLVBlogs</span></h1>
+            <h1 class="text-center" style="color:white">Welcome to <span style="font-weight: bold;color:orange">WLVBlogs</span></h1>
 
-            <div style="display:flex;justify-content:space-around">
-                <a href="
-                "><button style="border-radius:20px;" class="btn">
+            <div class="text-center" style="display:flex;justify-content:space-around">
+                <a class="text-center" href="blogs.php"><button style="border-radius:20px;" class="btn">
                 Check out the Blogs
                 </button></a>
              </div>

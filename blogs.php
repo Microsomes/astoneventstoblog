@@ -66,14 +66,14 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div>
 
     <?php foreach($blogs as $blog): ?>
-        <div  class="hover:bg-gray-400 ml-6 mr-6 cursor-pointer pl-6 pr-6 bg-gray-300 mt-2 p-2 rounded-md">
+        <a href="blog.php?id=<?php  print_r($blog['id']);?>"><div  class="hover:bg-gray-400 ml-6 mr-6 cursor-pointer pl-6 pr-6 bg-gray-300 mt-2 p-2 rounded-md">
 
         <p class="font-bold text-xl"><?php print_r($blog['username']);?></p>
         <p class="text-sm"><?php print_r($blog['createdAT']);?></p>
         <br>
        <p class="text-3xl"> <?php print_r($blog['title']);?></p>
          
-        </div>
+        </div></a>
         <?php endforeach; ?>
 
     </div>
