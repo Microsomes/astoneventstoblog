@@ -37,6 +37,8 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js" integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
     <title>My Posts</title>
     <style>
@@ -69,7 +71,16 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <a href="blog.php?id=<?php  print_r($blog['id']);?>"><div  class="hover:bg-gray-400 ml-6 mr-6 cursor-pointer pl-6 pr-6 bg-gray-300 mt-2 p-2 rounded-md">
 
         <p class="font-bold text-xl"><?php print_r($blog['username']);?></p>
-        <p class="text-sm"><?php print_r($blog['createdAT']);?></p>
+        <!-- <p class="text-sm"><?php print_r($blog['createdAT']);?></p> -->
+
+        <!--Calculate the difference timing createdAT from Now-->
+        <?php
+        $now = new DateTime();
+        $createdAT = new DateTime($blog['createdAT']);
+        $diff = $createdAT->diff($now);
+        print_r($diff->format("%d days, %h hours, %i minutes"));
+        ?>
+
         <br>
        <p class="text-3xl"> <?php print_r($blog['title']);?></p>
          

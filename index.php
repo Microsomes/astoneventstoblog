@@ -38,7 +38,7 @@ $curNav="home";
     <?php include_once("./includes/header.php") ?>
 
     <div style="flex-grow:1;
-    background-image:url('https://firebasestorage.googleapis.com/v0/b/skycoin-f383f.appspot.com/o/bckground.png?alt=media&token=0fbfb5cd-3f36-4851-8354-4f35167fa262');
+    background-image:url('https://firebasestorage.googleapis.com/v0/b/wlvuni-d24d6.appspot.com/o/university_of_wolverhampton.jpg?alt=media&token=777f4480-6ab9-42e7-80df-4baa7323f027');
     background-repeat:no-repeat;background-size:cover;
 
     display:flex;align-items:center;justify-content:center;
@@ -46,7 +46,7 @@ $curNav="home";
 
     ">
     
-        <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;background:none;border-radius:10px;padding:20px;">
+        <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;background:none;border-radius:10px;padding:20px;background:black">
             <h1 class="text-center" style="color:white">Welcome to <span style="font-weight: bold;color:orange">WLVBlogs</span></h1>
 
             <div class="text-center" style="display:flex;justify-content:space-around">
