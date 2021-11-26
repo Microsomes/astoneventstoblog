@@ -49,9 +49,13 @@ if (isset($_GET['query'])) {
     <h1 class="text-center text-2xl font-bold mb-4">Search Results</h1>
 
     <?php foreach($blogs as $blog): ?>
-        <div class="ml-6 mr-6 cursor-pointer pl-6 pr-6 bg-gray-300 mt-2 p-2 rounded-md">
+
+
+        <!--link to blog with a tag-->
+
+        <a href="/blog.php?id=<?php echo $blog['id'];?>"><div class="ml-6 mr-6 cursor-pointer pl-6 pr-6 bg-gray-300 mt-2 p-2 rounded-md">
         <?php print_r($blog['title']);?>
-        </div>
+        </div></a>
 
     <?php endforeach; ?>
 </div>
