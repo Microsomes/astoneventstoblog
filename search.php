@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 
 if (isset($_GET['query'])) {
@@ -6,6 +9,14 @@ if (isset($_GET['query'])) {
 
 
     include_once('./includes/connect.php');
+
+
+    //get topics array
+    $topics = array();
+    
+    $topo=$_GET['topic'];
+
+    
 
 
 
@@ -75,6 +86,23 @@ if (isset($_GET['query'])) {
         <!--link to blog with a tag-->
 
         <a href="/blog.php?id=<?php echo $blog['id'];?>"><div class="ml-6 mr-6 cursor-pointer pl-6 pr-6 bg-gray-300 mt-2 p-2 rounded-md">
+            
+            <?php
+
+
+
+            //get the topic of the blog
+            $sql = "SELECT * FROM wlv_topic WHERE id=".$blog['topicId'];
+            $result= $conn->query($sql);
+            $topic= $result->fetch(PDO::FETCH_ASSOC);
+        
+            
+            ?>
+
+            <!--topic name-->
+            <h2 class="text-xl font-bold mb-2"><?php echo $topic['name']; ?></h2>
+            
+
         <?php print_r($blog['title']);?>
         </div></a>
 
