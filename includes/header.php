@@ -24,13 +24,23 @@
       ?>" href="blogs.php">Blogs</a></li>
 
 
+     
+      <li><a style="background:<?php 
+
+        if(isset($curNav) && $curNav=="myblogs"){
+            echo "#d32f2f";
+        }
+      
+      ?>" href="myblogs.php">My Blogs</a></li>
+
+
 
       <li><a style="background:<?php 
         if(isset($curNav) && $curNav=="myposts"){
             echo "#d32f2f";
         }
 
-        ?>" href="myposts.php">Create</a></li>
+        ?>" href="createBlog.php">Create</a></li>
   
         
         <?php if(isset($_SESSION['userid'])):?>

@@ -22,6 +22,7 @@ CREATE TABLE wlv_blogs (id integer AUTO_INCREMENT,PRIMARY KEY(id),
                    title varchar(255),
                    author varchar(255),
                    content TEXT,
+                   published VARCHAR(1) DEFAULT 0,
                    
                    topicId integer NOT NULL,
                         FOREIGN KEY(topicId) REFERENCES wlv_topic(id)

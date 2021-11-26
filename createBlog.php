@@ -67,7 +67,7 @@ if (
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js" integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <title>My Posts</title>
+    <title>Create Blog</title>
     <style>
     *{
         padding:0;
@@ -94,7 +94,7 @@ if (
 
     <div>
 
-        <form class="p-12" action="/myposts.php" method="POST">
+        <form class="p-12" action="/createBlog.php" method="POST">
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
                     Title

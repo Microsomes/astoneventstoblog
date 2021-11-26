@@ -14,7 +14,7 @@ if (!isset($_SESSION['userid'])) {
 }
 
 //get wlv_blogs
-$sql2="SELECT wlv_blogs.*, wlv_users.username,wlv_topic.name FROM wlv_blogs INNER JOIN wlv_users ON wlv_blogs.userId= wlv_users.id INNER JOIN wlv_topic ON wlv_topic.id= wlv_blogs.topicId ORDER BY id desc";
+$sql2="SELECT wlv_blogs.*, wlv_users.username,wlv_topic.name FROM wlv_blogs INNER JOIN wlv_users ON wlv_blogs.userId= wlv_users.id INNER JOIN wlv_topic ON wlv_topic.id= wlv_blogs.topicId  WHERE published=1 ORDER BY id desc";
 
 $stmt = $conn->prepare($sql2);
 $stmt->execute();
@@ -40,7 +40,7 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
-    <title>My Posts</title>
+    <title>Blogs</title>
     <style>
     *{
         padding:0;
@@ -61,7 +61,7 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="h-96 flex items-center justify-center  text-6xl bg-blue-400 w-screen">
 
-        <h2 class=" pointer text-white">Recent Submitted Blogs</h2>
+        <h2 class=" pointer text-white text-center">Recent Submitted Blogs</h2>
 
     </div>
 
