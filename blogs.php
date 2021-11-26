@@ -13,12 +13,26 @@ if (!isset($_SESSION['userid'])) {
     header("Location: signin.php");
 }
 
+
+
+
 //get wlv_blogs
 $sql2="SELECT wlv_blogs.*, wlv_users.username,wlv_topic.name FROM wlv_blogs INNER JOIN wlv_users ON wlv_blogs.userId= wlv_users.id INNER JOIN wlv_topic ON wlv_topic.id= wlv_blogs.topicId  WHERE published=1 ORDER BY id desc";
 
 $stmt = $conn->prepare($sql2);
 $stmt->execute();
 $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+// paginate wlg_blogs
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$perPage = 2;
+$total = count($blogs);
+$pages = ceil($total / $perPage);
+$start = ($page - 1) * $perPage;
+$end = $start + $perPage;
+$filteredBlog = array_slice($blogs, $start, $end);
+
 
 
 
@@ -77,7 +91,7 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div>
 
-    <?php foreach($blogs as $blog): ?>
+    <?php foreach($filteredBlog as $blog): ?>
         <a href="blog.php?id=<?php  print_r($blog['id']);?>"><div  class="hover:bg-gray-400 ml-6 mr-6 cursor-pointer pl-6 pr-6 bg-gray-300 mt-2 p-2 rounded-md">
 
         <p class="font-bold text-xl"><?php print_r($blog['username']);?></p>
@@ -97,6 +111,19 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div></a>
         <?php endforeach; ?>
 
+        <div class="h-6"></div>
+        <?php
+        
+        if ($pages > 1) {
+            echo '<div class="flex justify-center">';
+            for ($i = 1; $i <= $pages; $i++) {
+                echo '<a class="btn p-1 w-12 h-12 bg-green-400 ml-2" href="blogs.php?page=' . $i . '" class="text-2xl text-blue-400 hover:text-blue-500">' . $i . '</a>';
+            }
+            echo '</div>';
+        }
+        
+        ?>
+
     </div>
 
     <div>
@@ -107,6 +134,9 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
     </div>
+
+
+    <div class="h-12"></div>
 
  </div>
 
