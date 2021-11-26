@@ -173,6 +173,7 @@ if (isset($_GET['id'])) {
             showComments: false,
             innercomments: [],
             commentValue: '',
+            showReply:false,
 
             }
         },
@@ -181,22 +182,6 @@ if (isset($_GET['id'])) {
             this.getAllComments();
         },
         methods:{
-            createComment: function () {
-                axios.post('ajax/createComment.php', {
-                    "comment":this.commentValue,
-                    "userId":<?php echo $_SESSION['userid'];?>,
-                    "blogId":this.blogid,
-                    "parent":this.parentid
-                })
-                .then(function (response) {
-                    console.log(response);
-                    this.commentValue = '';
-                    this.comments.push(response.data);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            },
             getAllComments(){
                     axios.post('ajax/getComments.php',{
                         blogId:this.blogid,
@@ -208,6 +193,27 @@ if (isset($_GET['id'])) {
                     })
                     
                 },
+            createComment: function () {
+               
+                var home=this;
+                axios.post('ajax/createComment.php', {
+                    "comment":this.commentValue,
+                    "userId":<?php echo $_SESSION['userid'];?>,
+                    "blogId":this.blogid,
+                    "parent":this.parentid
+                })
+                .then(function (response) {
+                    console.log(response);
+                    home.commentValue = '';
+                    home.getAllComments();
+                    home.showReply=false;
+                    this.showComments=true;
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            }
             
      
         
@@ -230,9 +236,16 @@ if (isset($_GET['id'])) {
         </div>
 
         <div class="flex items-center m-2 cursor-pointer">
-            <i class="material-icons text-gray-300">reply</i>
+            <i @click="showReply=true" class="material-icons text-gray-300">reply</i>
             <div class="ml-2 text-xl text-gray-500">{{innercomments.length}}</div>
         </div>
+        </div>
+
+        <!--show reply input-->
+        <div v-if="showReply">
+        <form @submit.prevent="createComment">
+            <input v-model="commentValue" type="text" placeholder="Make a comment?"/>
+        </form>
         </div>
 
        <p class="text-sm cursor-pointer" @click="showComments=!showComments"> <span v-if="showComments==false">Show</span> <span v-else>Hide</span> {{innercomments.length}} Reply </p>

@@ -57,7 +57,32 @@ CREATE TABLE wlv_likes(id integer AUTO_INCREMENT,PRIMARY KEY(id),
                        ON UPDATE CASCADE
                        
                        ,
+                       `parent` varchar(16000) DEFAULT NULL,
                 
+                       `createdAT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+                       
+                      
+                      );
+
+
+
+                      CREATE TABLE wlv_likes_comments(id integer AUTO_INCREMENT,PRIMARY KEY(id),
+                      
+                       `val` int DEFAULT 0,
+                       
+                       `userId` integer NOT NULL,
+                       FOREIGN KEY (userId) REFERENCES wlv_users(id)
+                       ON DELETE CASCADE
+                       ON UPDATE CASCADE
+                       ,
+                       
+                       `commentId` integer NOT NULL,
+                       FOREIGN KEY (commentId) REFERENCES wlv_comments(id)
+                       ON DELETE CASCADE
+                       ON UPDATE CASCADE,
+                       
+                       
                        `createdAT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
                        
@@ -78,7 +103,7 @@ CREATE TABLE wlv_likes(id integer AUTO_INCREMENT,PRIMARY KEY(id),
                        ON UPDATE CASCADE       
                               
                               ,
-                         `parent` varchar(1) DEFAULT NULL,
+                         `parent` varchar(16000) DEFAULT NULL,
 
                        
                       `createdAT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
