@@ -174,14 +174,57 @@ if (isset($_GET['id'])) {
             innercomments: [],
             commentValue: '',
             showReply:false,
+            currentLikeValue:-1,
 
             }
         },
         created(){
             console.log("inner")
             this.getAllComments();
+            this.getLikeStatus();
         },
         methods:{
+            addLike(){
+                var home=this;
+                axios.post('/ajax/addLike.php',{
+                    "type":"comment",
+                    "commentid":this.parentid,
+                    "userid":<?php echo $_SESSION['userid'];?>,
+                    "val":"1"
+                }).then(res=>{
+                    console.log(res.data)
+                   home.getLikeStatus();
+                })
+            },
+            addDislike(){
+                var home=this;
+                axios.post('/ajax/addLike.php',{
+                    "type":"comment",
+                    "commentid":this.parentid,
+                    "userid":<?php echo $_SESSION['userid'];?>,
+                    "val":"0"
+                }).then(res=>{
+                    console.log(res.data)
+                   home.getLikeStatus();
+                })
+            },
+            getLikeStatus(){
+                var home=this;
+                axios.post('/ajax/getLikeStatus.php',{
+                    "type":"comment",
+                    "commentid":this.parentid,
+                    "userid":<?php echo $_SESSION['userid'];?>
+                }).then(res=>{
+                    console.log(res.data)
+                    if(res.data){
+                        home.currentLikeValue=res.data.val;
+                    }else{
+                        return;
+                    }
+                  
+                })
+                
+            },
             getAllComments(){
                     axios.post('ajax/getComments.php',{
                         blogId:this.blogid,
@@ -221,17 +264,19 @@ if (isset($_GET['id'])) {
         props:['parentid','blogid'],
         template: `
         <div class="noselect">
+
+        {{currentLikeValue}}
         
         <!--create like count and dislike count and reply button-->
         <div class="flex">
 
-        <div class="flex items-center m-2 cursor-pointer">
-            <i class="material-icons text-gray-300">thumb_up</i>
+        <div @click="addLike" class="flex items-center m-2 cursor-pointer">
+            <i :class="{'text-gray-500':currentLikeValue==1}" class="material-icons text-gray-300">thumb_up</i>
             <div class="ml-2 text-xl text-gray-500">0</div>
         </div>
 
-        <div class="flex items-center m-2 cursor-pointer">
-            <i class="material-icons text-gray-300">thumb_down</i>
+        <div @click="addDislike" class="flex items-center m-2 cursor-pointer">
+            <i :class="{'text-gray-500':currentLikeValue==0}" class="material-icons text-gray-300">thumb_down</i>
             <div class="ml-2 text-xl text-gray-500">0</div>
         </div>
 
@@ -292,6 +337,7 @@ if (isset($_GET['id'])) {
                     }).then(data=>{
                         this.commentValue='';
                         this.getAllComments();
+                        location.reload();
                     });
                 }
             }
