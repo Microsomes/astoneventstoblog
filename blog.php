@@ -147,8 +147,6 @@ if (isset($_GET['id'])) {
 
 
     <script>
-
-
             var app = new Vue({
             el: '#app',
             data: {

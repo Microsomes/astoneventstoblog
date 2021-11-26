@@ -66,6 +66,16 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <div>
+        <!-- create a searchbar -->
+        <div class="card pl-6 pr-6 ml-6 mr-6">
+            <form  action="/search.php">
+            <input name="query" placeholder="search anything?" type="text"/>
+            </form>
+        </div>
+        
+    </div>
+
+    <div>
 
     <?php foreach($blogs as $blog): ?>
         <a href="blog.php?id=<?php  print_r($blog['id']);?>"><div  class="hover:bg-gray-400 ml-6 mr-6 cursor-pointer pl-6 pr-6 bg-gray-300 mt-2 p-2 rounded-md">

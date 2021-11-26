@@ -59,7 +59,8 @@ $curNav="myblogs";
 
          <div class="mt-3">
          <a href="/blog.php?id=<?php echo $blog['id']; ?>"><button  class="bg-green-300 rounded-md p-1">View</button></a>
-         <button  class="bg-green-300 rounded-md p-1">Edit</button>
+         <a href="/editBlog.php?id=<?php echo $blog['id'];?>"><button  class="bg-green-300 rounded-md p-1">Edit</button></a>
+         
          <a href="/deleteBlog.php?id=<?php echo $blog['id'];?>"><button  class="bg-green-300 rounded-md p-1">Delete</button></a>
 
 
