@@ -1,0 +1,22 @@
+
+
+EXAMPLE LIVE LINK
+
+http://178.62.20.54
+
+
+Example Database
+http://178.62.20.54/phpmyadmin
+- username mag
+- password: magpass
+
+
+Firstly you gotta set up the database, if you check the example database ^ you can export the blogs database and manually add it to your database
+
+
+Then copy all the code from this link to your server:
+https://github.com/microsomes/astoneventstoblog
+
+
+Note that you may need to go inside of includes/connect.php and change the database password to your University database password.
+
