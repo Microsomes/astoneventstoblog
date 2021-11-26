@@ -265,19 +265,16 @@ if (isset($_GET['id'])) {
         template: `
         <div class="noselect">
 
-        {{currentLikeValue}}
         
         <!--create like count and dislike count and reply button-->
         <div class="flex">
 
         <div @click="addLike" class="flex items-center m-2 cursor-pointer">
             <i :class="{'text-gray-500':currentLikeValue==1}" class="material-icons text-gray-300">thumb_up</i>
-            <div class="ml-2 text-xl text-gray-500">0</div>
         </div>
 
         <div @click="addDislike" class="flex items-center m-2 cursor-pointer">
             <i :class="{'text-gray-500':currentLikeValue==0}" class="material-icons text-gray-300">thumb_down</i>
-            <div class="ml-2 text-xl text-gray-500">0</div>
         </div>
 
         <div class="flex items-center m-2 cursor-pointer">
