@@ -7,10 +7,28 @@ if (isset($_GET['query'])) {
 
     include_once('./includes/connect.php');
 
-    //search from wlv_blogs uding pdo
-    $sql = "SELECT * FROM wlv_blogs WHERE title LIKE '%$search%' OR content LIKE '%$search%'";
-    $result = $conn->query($sql);
-    $blogs = $result->fetchAll(PDO::FETCH_ASSOC);
+
+
+    $filter= $_GET['filter'];
+
+    if($filter =='all'){
+        $sql = "SELECT * FROM wlv_blogs WHERE title LIKE '%$search%' OR content LIKE '%$search%'";
+
+        $result= $conn->query($sql);
+        $blogs= $result->fetchAll(PDO::FETCH_ASSOC);
+
+
+        
+        
+    }else{
+
+    //search from wlv_blogs using pdo and with the filter of the search called filter
+    $sql = "SELECT * FROM wlv_blogs WHERE $filter LIKE '%$search%' ORDER BY ID DESC";
+    $result= $conn->query($sql);
+    $blogs= $result->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
 
 
 
@@ -47,6 +65,9 @@ if (isset($_GET['query'])) {
     
     <!--search results title-->
     <h1 class="text-center text-2xl font-bold mb-4">Search Results</h1>
+
+    <!--show filter used-->
+    <h2 class="text-center text-xl font-bold mb-4">Filter: <?php echo $filter; ?></h2>
 
     <?php foreach($blogs as $blog): ?>
 

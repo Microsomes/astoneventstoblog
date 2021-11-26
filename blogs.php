@@ -82,8 +82,21 @@ $filteredBlog = array_slice($blogs, $start, $end);
     <div>
         <!-- create a searchbar -->
         <div class="card pl-6 pr-6 ml-6 mr-6">
-            <form  action="/search.php">
+            <form  class="p-3" action="/search.php">
             <input name="query" placeholder="search anything?" type="text"/>
+                    
+                <!--Search filter by title and by content-->
+                <select class="browser-default" name="filter">
+                    <option value="title">Title</option>
+                    <option value="content">Content</option>
+                    <option value="all">All</option>
+                </select>
+
+                <!--create search button vertically centred-->
+                <div class="flex justify-center">
+                    <button class="bg-blue-400 text-white p-2 rounded-full" type="submit">Search</button>
+                </div>
+
             </form>
         </div>
         
