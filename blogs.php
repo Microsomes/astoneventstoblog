@@ -117,7 +117,15 @@ $filteredBlog = array_slice($blogs, $start, $end);
         if ($pages > 1) {
             echo '<div class="flex justify-center">';
             for ($i = 1; $i <= $pages; $i++) {
-                echo '<a class="btn p-1 w-12 h-12 bg-green-400 ml-2" href="blogs.php?page=' . $i . '" class="text-2xl text-blue-400 hover:text-blue-500">' . $i . '</a>';
+                
+                $currentPage= isset($_GET['page']) ? $_GET['page'] : 1;
+
+                if ($i == $currentPage) {
+                    echo '<a href="blogs.php?page='.$i.'" class="bg-gray-400 p-2 rounded-md text-xl ml-2">'.$i.'</a>';
+                } else {
+                    echo '<a href="blogs.php?page='.$i.'" class="bg-blue-400 p-2 rounded-md text-xl ml-2">'.$i.'</a>';
+                }
+
             }
             echo '</div>';
         }
