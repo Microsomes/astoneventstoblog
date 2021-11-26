@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 session_start();
 
 if (isset($_GET['query'])) {
@@ -11,10 +8,7 @@ if (isset($_GET['query'])) {
     include_once('./includes/connect.php');
 
 
-    //get topics array
-    $topics = array();
-    
-    $topo=$_GET['topic'];
+ 
 
     
 
@@ -23,12 +17,21 @@ if (isset($_GET['query'])) {
     $filter= $_GET['filter'];
 
     if($filter =='all'){
+
+        if(isset($_GET['topic'])){
+            $topics= $_GET['topic'];
+            $query = "SELECT * FROM posts WHERE MATCH(title, body) AGAINST('$search') AND topic_id = $topics";
+
+            echo 1;
+
+        }else{
+
         $sql = "SELECT * FROM wlv_blogs WHERE title LIKE '%$search%' OR content LIKE '%$search%'";
 
         $result= $conn->query($sql);
         $blogs= $result->fetchAll(PDO::FETCH_ASSOC);
 
-
+        }
         
         
     }else{
@@ -80,6 +83,12 @@ if (isset($_GET['query'])) {
     <!--show filter used-->
     <h2 class="text-center text-xl font-bold mb-4">Filter: <?php echo $filter; ?></h2>
 
+   
+
+
+
+    
+
     <?php foreach($blogs as $blog): ?>
 
 
@@ -101,7 +110,7 @@ if (isset($_GET['query'])) {
 
             <!--topic name-->
             <h2 class="text-xl font-bold mb-2"><?php echo $topic['name']; ?></h2>
-            
+
 
         <?php print_r($blog['title']);?>
         </div></a>
