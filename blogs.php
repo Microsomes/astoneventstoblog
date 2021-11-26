@@ -34,6 +34,13 @@ $end = $start + $perPage;
 $filteredBlog = array_slice($blogs, $start, $end);
 
 
+//wlg_topic
+$sql3="SELECT * FROM wlv_topic";
+$stmt = $conn->prepare($sql3);
+$stmt->execute();
+$topics = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
 
 
 ?>
@@ -91,6 +98,26 @@ $filteredBlog = array_slice($blogs, $start, $end);
                     <option value="content">Content</option>
                     <option value="all">All</option>
                 </select>
+
+                <!--wlv_topic checkbox filter-->
+                <div class="flex flex-col flex-wrap">
+
+                <div>
+                        <?php foreach($topics as $topic): ?>
+                        <div class="w-1/2 mt-2">
+
+                        <p>
+                            <label>
+                            <input type="checkbox" name="topic[]" value="<?php echo $topic['id'] ?>" id="<?php echo $topic['name'] ?>" class="filled-in" />
+                                <span><?php echo $topic['name'];?></span>
+                            </label>
+                        </p>
+
+                        
+                        </div>
+                        <?php endforeach; ?>
+                </div>
+
 
                 <!--create search button vertically centred-->
                 <div class="flex justify-center">
