@@ -14,9 +14,9 @@ $input = json_decode($inputJSON, TRUE); //convert JSON into array
 
 //insert into wlv_blogs
 
-$sql = "INSERT INTO wlv_comments (`comment`, `userId`, `blogId`) VALUES (?,?,?)";
+$sql = "INSERT INTO wlv_comments (`comment`, `userId`, `blogId`, `parent`) VALUES (?,?,?,?)";
 $stmt= $conn->prepare($sql);
-$stmt->execute([$input['comment'],$input['userId'],$input['blogId']]);
+$stmt->execute([$input['comment'],$input['userId'],$input['blogId'], $input['parent']]);
 
 $id = $conn->lastInsertId();
 
