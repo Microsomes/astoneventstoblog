@@ -146,8 +146,19 @@ if (isset($_GET['id'])) {
             <input v-model="commentValue" type="text" placeholder="Make a comment?"/>
         </form>
 
-        <div class="pl-6 pb-2 bg-gray-100 shadow-xl m-2 rounded-md text-2xl flex flex-col mt-5  " v-for="comment in comments">
-            <p class="text-sm text-gray-800 uppercase">{{comment.username}}</p>
+        <div class="pl-6 pb-2 pt-2 bg-gray-300 shadow-xl m-2 rounded-md text-2xl flex flex-col mt-5  " v-for="comment in comments">
+            
+            <div class="flex items-center">
+                <!--profile icon-->
+                <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gray-400">
+                    <img class="w-8 h-8 rounded-full" src="https://via.placeholder.com/350x150" alt="">
+                </div>
+
+            <p class="ml-3 text-xl text-gray-800 uppercase">{{comment.username}}</p>
+
+
+            </div>
+            
             <p class="text-sm text-gray-500">{{comment.createdAT}}</p>
             <p class="break-all">{{comment.comment}} </p>
             <div class="h-1 bg-gray-200"></div>

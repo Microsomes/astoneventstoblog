@@ -2,7 +2,8 @@
 CREATE TABLE wlv_users(id integer AUTO_INCREMENT,PRIMARY KEY(id),
                       username varchar(255) NOT NULL,
                        `admin` tinyint DEFAULT 0,
-                       `password` TEXT NOT NULL,                       
+                       `password` TEXT NOT NULL, 
+                       `profileImage` VARCHAR(2000) DEFAULT NULL,                      
                `createdAT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
                       );
