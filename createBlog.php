@@ -154,7 +154,7 @@ if (
 
         <script>
 
-axios.get("/ajax/getTopics.php").then(data=>{
+axios.get("ajax/getTopics.php").then(data=>{
     const topics=data.data;
     //add options too the select #topicOptions
     for(let i=0;i<topics.length;i++){
