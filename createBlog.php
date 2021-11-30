@@ -94,7 +94,7 @@ if (
 
     <div>
 
-        <form class="p-12" action="/createBlog.php" method="POST">
+        <form class="p-12" action="createBlog.php" method="POST">
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
                     Title
