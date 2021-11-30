@@ -65,11 +65,11 @@ $curNav="myblogs";
 
 
          <?php if($blog['published']!=1):?>
-             <a href="/publishBlog.php?id=<?php echo $blog['id'];?>"><button  class="bg-green-300 rounded-md p-1">Publish</button></a>
+             <a href="publishBlog.php?id=<?php echo $blog['id'];?>"><button  class="bg-green-300 rounded-md p-1">Publish</button></a>
         <?php endif;?>
 
         <?php if($blog['published']==1):?>
-             <a href="/unpublishBlog.php?id=<?php echo $blog['id'];?>"><button  class="bg-green-300 rounded-md p-1">Un-Publish</button></a>
+             <a href="unpublishBlog.php?id=<?php echo $blog['id'];?>"><button  class="bg-green-300 rounded-md p-1">Un-Publish</button></a>
         <?php endif;?>
 
 
