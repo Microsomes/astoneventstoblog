@@ -16,7 +16,7 @@ $curNav="home";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <title>Culture</title>
+    <title>Home</title>
     <style>
     *{
         padding:0;
@@ -24,15 +24,8 @@ $curNav="home";
         font-family: 'Roboto', sans-serif;
     }
     
-    #signInBox{
-        display: flex;;
-        flex-flow: column;
-    }
-    #logInButtonContainer{
-        display: flex;
-        flex-flow: column;
-    }
-
+  
+  
     </style>
 </head>
 <body>
