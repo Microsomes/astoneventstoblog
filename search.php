@@ -94,7 +94,7 @@ if (isset($_GET['query'])) {
 
         <!--link to blog with a tag-->
 
-        <a href="/blog.php?id=<?php echo $blog['id'];?>"><div class="ml-6 mr-6 cursor-pointer pl-6 pr-6 bg-gray-300 mt-2 p-2 rounded-md">
+        <a href="blog.php?id=<?php echo $blog['id'];?>"><div class="ml-6 mr-6 cursor-pointer pl-6 pr-6 bg-gray-300 mt-2 p-2 rounded-md">
             
             <?php
 

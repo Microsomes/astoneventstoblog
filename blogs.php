@@ -89,7 +89,7 @@ $topics = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div>
         <!-- create a searchbar -->
         <div class="card pl-6 pr-6 ml-6 mr-6">
-            <form  class="p-3" action="/search.php">
+            <form  class="p-3" action="search.php">
             <input name="query" placeholder="search anything?" type="text"/>
                     
                 <!--Search filter by title and by content-->
