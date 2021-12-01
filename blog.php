@@ -13,9 +13,7 @@ if (!isset($_SESSION['userid'])) {
     header("Location: signin.php");
 }
 
-$error=null;
-$successInsert=null;
-$lastInsertId=null;
+
 
 if (isset($_GET['id'])) {
     $id=$_GET['id'];

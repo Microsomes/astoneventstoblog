@@ -2,12 +2,8 @@
     <div class="nav-wrapper" style="background:black">
       <a href="index.php" style="margin-left:20px;" class="brand-logo hide-on-med-and-down">WLVBlog</a>
       <ul id="nav-mobile" class="right  ">
+
       
-      <?php if(isset($isEventPage)):?>
-      <li><a style="background:#d32f2f" href="event.php?eventid=<?php echo $eventID;?>">
-      Current Event(<?php echo $eventTitle;?>)
-      </a></li>
-      <?php endif;?>
 
 
       <li><a  style="background:<?php
